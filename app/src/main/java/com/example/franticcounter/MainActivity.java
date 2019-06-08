@@ -19,7 +19,9 @@ import static java.util.Objects.isNull;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<String> player1, player2, player3;
+    private List<String> player1, player2, player3;
+    private int result1 = 0, result2 = 0, result3 = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         TextView playerOld1 = findViewById(R.id.oldIntegersPlayer1);
         TextView playerOld2 = findViewById(R.id.oldIntegersPlayer2);
         TextView playerOld3 = findViewById(R.id.oldIntegersPlayer3);
+        TextView resultPlayer1 = findViewById(R.id.resultPlayer1);
+        TextView resultPlayer2 = findViewById(R.id.resultPlayer2);
+        TextView resultPlayer3 = findViewById(R.id.resultPlayer3);
 
         hideKeyboardFrom(getApplicationContext(), playerInt1);
 
@@ -59,11 +64,19 @@ public class MainActivity extends AppCompatActivity {
             player2.add(playerInt2.getText().toString());
             player3.add(playerInt3.getText().toString());
 
+            result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
+            result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
+            result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
+
             for (int i = 0; i < player1.size(); i++) {
                 playerOld1.append(player1.get(i) + "\n");
                 playerOld2.append(player2.get(i) + "\n");
                 playerOld3.append(player3.get(i) + "\n");
             }
+
+            resultPlayer1.setText(String.valueOf(result1));
+            resultPlayer2.setText(String.valueOf(result2));
+            resultPlayer3.setText(String.valueOf(result3));
 
             playerInt1.setText(null);
             playerInt2.setText(null);
