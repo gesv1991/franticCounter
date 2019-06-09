@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">franticCounter</string>
     <string name="player1">Player1</string>
+    <string name="title_activity_with_menu_bar">WithMenuBar</string>
 </resources>

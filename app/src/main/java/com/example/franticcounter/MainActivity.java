@@ -5,10 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private int result1 = 0, result2 = 0, result3 = 0;
     private int roundNumber;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_with_menu_bar);
+
         TextView roundName = findViewById(R.id.round);
         TextView roundInteger = findViewById(R.id.roundInteger);
 
@@ -34,9 +37,33 @@ public class MainActivity extends AppCompatActivity {
         roundNumber = 0;
         roundName.setText("Runde: ");
         roundInteger.setText(String.valueOf(roundNumber));
-
+  /*       SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.franticcounter", Context.MODE_PRIVATE);
+       sharedPreferences.edit().putInt("player1Value", Integer.parseInt(resultPlayer1.getText().toString()));
+        sharedPreferences.edit().putInt("player2Value", Integer.parseInt(resultPlayer2.getText().toString()));
+        sharedPreferences.edit().putInt("player3Value", Integer.parseInt(resultPlayer3.getText().toString()));*/
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -68,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
             player2.add(playerInt2.getText().toString());
             player3.add(playerInt3.getText().toString());
 
-                result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
-                result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
-                result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
+            result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
+            result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
+            result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
 
             for (int i = 0; i < player1.size(); i++) {
                 playerOld1.append(player1.get(i) + "\n");
@@ -85,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
             playerInt1.setText(null);
             playerInt2.setText(null);
             playerInt3.setText(null);
-            updateRoundField();
+            updateRoundField(player1.size());
+
         }
         else {
             //if Field is null
@@ -94,12 +122,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateRoundField(){
+    private void updateRoundField(Integer round){
 
         TextView roundInteger = findViewById(R.id.roundInteger);
 
-        roundNumber++;
-        roundInteger.setText(String.valueOf(roundNumber));
-        Log.i("updateRoundField_msg", "UpdateRoundField to " + roundNumber);
+        roundInteger.setText(String.valueOf(round));
+        Log.i("updateRoundField_msg", "UpdateRoundField to " + round);
     }
 }

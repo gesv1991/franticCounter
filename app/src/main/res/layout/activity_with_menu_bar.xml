@@ -14,8 +14,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/include">
 
         <EditText
             android:id="@+id/player1Name"
@@ -218,7 +219,6 @@
             android:inputType="none"
             android:textAlignment="textEnd" />
 
-        />
     </LinearLayout>
 
     <TextView
@@ -244,5 +244,9 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toStartOf="@+id/roundInteger"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_with_menu_bar" />
 
 </android.support.constraint.ConstraintLayout>
