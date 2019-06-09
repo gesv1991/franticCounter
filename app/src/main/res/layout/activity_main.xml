@@ -9,13 +9,13 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/player1Name"
@@ -25,7 +25,8 @@
             android:layout_marginTop="20dp"
             android:layout_weight="30"
             android:hint="Player1"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:textAlignment="textEnd" />
 
         <EditText
             android:id="@+id/player2Name"
@@ -36,7 +37,8 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
             android:hint="Player2"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:textAlignment="textEnd" />
 
         <EditText
             android:id="@+id/player3Name"
@@ -46,19 +48,20 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="30"
             android:hint="Player3"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:textAlignment="textEnd" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout23"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <EditText
             android:id="@+id/player1Int"
@@ -66,8 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="30"
-            android:hint="Int1"
-            android:inputType="number" />
+            android:hint="Zahl"
+            android:inputType="numberSigned|number"
+            android:textAlignment="textEnd" />
 
         <EditText
             android:id="@+id/player2Int"
@@ -76,8 +80,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
-            android:hint="Int2"
-            android:inputType="number" />
+            android:hint="Zahl"
+            android:inputType="numberSigned|number"
+            android:textAlignment="textEnd" />
 
         <EditText
             android:id="@+id/player3Int"
@@ -85,22 +90,23 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="30"
-            android:hint="Int3"
-            android:inputType="number" />
+            android:hint="Zahl"
+            android:inputType="numberSigned|number"
+            android:textAlignment="textEnd" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout23"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout23">
 
         <Button
             android:id="@+id/calculateBtn"
@@ -114,6 +120,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -122,9 +129,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:layout_height="wrap_content">
+        app:layout_constraintVertical_bias="0.168">
 
         <TextView
             android:id="@+id/resultPlayer1"
@@ -133,6 +141,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
+            android:textAlignment="textEnd"
             android:textStyle="bold" />
 
         <TextView
@@ -142,6 +151,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
+            android:textAlignment="textEnd"
             android:textStyle="bold" />
 
         <TextView
@@ -151,6 +161,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
+            android:textAlignment="textEnd"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -178,7 +189,8 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="old integers"
-            android:inputType="none" />
+            android:inputType="none"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/oldIntegersPlayer2"
@@ -190,7 +202,8 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="old integers"
-            android:inputType="none" />
+            android:inputType="none"
+            android:textAlignment="textEnd" />
 
         <TextView
             android:id="@+id/oldIntegersPlayer3"
@@ -202,9 +215,34 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="old integers"
-            android:inputType="none" />
+            android:inputType="none"
+            android:textAlignment="textEnd" />
 
         />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/roundInteger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.519" />
+
+    <TextView
+        android:id="@+id/round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toStartOf="@+id/roundInteger"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>

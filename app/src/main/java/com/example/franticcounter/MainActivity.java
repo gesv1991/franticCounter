@@ -2,37 +2,41 @@ package com.example.franticcounter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.isNull;
-
 public class MainActivity extends AppCompatActivity {
 
     private List<String> player1, player2, player3;
     private int result1 = 0, result2 = 0, result3 = 0;
-
+    private int roundNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView roundName = findViewById(R.id.round);
+        TextView roundInteger = findViewById(R.id.roundInteger);
 
         player1 = new ArrayList<>();
         player2 = new ArrayList<>();
         player3 = new ArrayList<>();
+        roundNumber = 0;
+        roundName.setText("Runde: ");
+        roundInteger.setText(String.valueOf(roundNumber));
 
     }
+
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -64,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
             player2.add(playerInt2.getText().toString());
             player3.add(playerInt3.getText().toString());
 
-            result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
-            result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
-            result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
+                result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
+                result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
+                result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
 
             for (int i = 0; i < player1.size(); i++) {
                 playerOld1.append(player1.get(i) + "\n");
@@ -81,9 +85,21 @@ public class MainActivity extends AppCompatActivity {
             playerInt1.setText(null);
             playerInt2.setText(null);
             playerInt3.setText(null);
+            updateRoundField();
         }
-        //if Field is null
-        Toast.makeText(getApplicationContext(), "Please add value to All player numbers", Toast.LENGTH_SHORT).show();
-        return;
+        else {
+            //if Field is null
+            Toast.makeText(getApplicationContext(), "Please add value to All player numbers", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
+
+    private void updateRoundField(){
+
+        TextView roundInteger = findViewById(R.id.roundInteger);
+
+        roundNumber++;
+        roundInteger.setText(String.valueOf(roundNumber));
+        Log.i("updateRoundField_msg", "UpdateRoundField to " + roundNumber);
     }
+}
