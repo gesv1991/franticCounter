@@ -5,14 +5,14 @@
     tools:context="com.example.franticcounter.MainActivity">
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_loadData"
         android:orderInCategory="100"
-        android:title="User"
+        android:title="LoadData"
         app:showAsAction="always"></item>
     <item
-        android:id="@+id/action_hilfe"
+        android:id="@+id/action_deleteData"
         android:orderInCategory="100"
-        android:title="PDF"
+        android:title="Delete Data"
         app:showAsAction="always"
         ></item>
 </menu>

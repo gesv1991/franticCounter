@@ -18,29 +18,43 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<String> player1, player2, player3;
+    private ArrayList<Integer> listOfPointsPlayer1, listOfPointsPlayer2, listOfPointsPlayer3;
+    private ArrayList<String> playerNames;
     private int result1 = 0, result2 = 0, result3 = 0;
     private int roundNumber;
 
+    private EditText playerInt1;
+    private EditText playerInt2;
+    private EditText playerInt3;
+    private TextView playerOld1;
+    private TextView playerOld2;
+    private TextView playerOld3;
+    private EditText playerName1;
+    private EditText playerName2;
+    private EditText playerName3;
+    private TextView resultPlayer1;
+    private TextView resultPlayer2;
+    private TextView resultPlayer3;
+    private TextView roundName;
+    private TextView roundInteger;
+    private TinyDB saveListOfPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_with_menu_bar);
 
-        TextView roundName = findViewById(R.id.round);
-        TextView roundInteger = findViewById(R.id.roundInteger);
+        roundName = findViewById(R.id.round);
+        roundInteger = findViewById(R.id.roundInteger);
 
-        player1 = new ArrayList<>();
-        player2 = new ArrayList<>();
-        player3 = new ArrayList<>();
+        listOfPointsPlayer1 = new ArrayList<>();
+        listOfPointsPlayer2 = new ArrayList<>();
+        listOfPointsPlayer3 = new ArrayList<>();
+        playerNames = new ArrayList<>();
         roundNumber = 0;
-        roundName.setText("Runde: ");
+        roundName.setText("Aktuelle Runde: ");
         roundInteger.setText(String.valueOf(roundNumber));
-  /*       SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.franticcounter", Context.MODE_PRIVATE);
-       sharedPreferences.edit().putInt("player1Value", Integer.parseInt(resultPlayer1.getText().toString()));
-        sharedPreferences.edit().putInt("player2Value", Integer.parseInt(resultPlayer2.getText().toString()));
-        sharedPreferences.edit().putInt("player3Value", Integer.parseInt(resultPlayer3.getText().toString()));*/
+        saveListOfPlayers = new TinyDB(getApplicationContext());
     }
 
     @Override
@@ -58,7 +72,36 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_loadData) {
+
+            listOfPointsPlayer1=saveListOfPlayers.getListInt("Player1SaveData");
+            listOfPointsPlayer2=saveListOfPlayers.getListInt("Player2SaveData");
+            listOfPointsPlayer3=saveListOfPlayers.getListInt("Player3SaveData");
+            playerNames= saveListOfPlayers.getListString("PlayerNames");
+
+            if (!listOfPointsPlayer1.isEmpty()|| !playerNames.isEmpty()) {
+                updateListOfOldPoints(listOfPointsPlayer1, listOfPointsPlayer2, listOfPointsPlayer3);
+                updateRoundField(listOfPointsPlayer1.size());
+                Toast.makeText(this, "Last data has been loaded", Toast.LENGTH_SHORT).show();
+                fillInTheNamesAfterLoading(playerNames);
+
+                return true;
+            }
+            else{
+                Toast.makeText(this, "There is no saved data", Toast.LENGTH_SHORT).show();
+                return true;
+
+            }
+        }
+        if (id == R.id.action_deleteData) {
+
+            saveListOfPlayers.clear();
+            setAllFieldsToNull();
+            updateRoundField(listOfPointsPlayer1.size());
+            updateListOfOldPoints(listOfPointsPlayer1, listOfPointsPlayer2, listOfPointsPlayer3);
+            fillInTheNamesAfterLoading(playerNames);
+            Toast.makeText(this, "Data has been deleted", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
@@ -72,15 +115,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickFunction(View view) {
 
-        EditText playerInt1 = findViewById(R.id.player1Int);
-        EditText playerInt2 = findViewById(R.id.player2Int);
-        EditText playerInt3 = findViewById(R.id.player3Int);
-        TextView playerOld1 = findViewById(R.id.oldIntegersPlayer1);
-        TextView playerOld2 = findViewById(R.id.oldIntegersPlayer2);
-        TextView playerOld3 = findViewById(R.id.oldIntegersPlayer3);
-        TextView resultPlayer1 = findViewById(R.id.resultPlayer1);
-        TextView resultPlayer2 = findViewById(R.id.resultPlayer2);
-        TextView resultPlayer3 = findViewById(R.id.resultPlayer3);
+        playerInt1 = findViewById(R.id.player1Int);
+        playerInt2 = findViewById(R.id.player2Int);
+        playerInt3 = findViewById(R.id.player3Int);
+        playerOld1 = findViewById(R.id.oldIntegersPlayer1);
+        playerOld2 = findViewById(R.id.oldIntegersPlayer2);
+        playerOld3 = findViewById(R.id.oldIntegersPlayer3);
+        playerName1 = findViewById(R.id.player1Name);
+        playerName2 = findViewById(R.id.player2Name);
+        playerName3 = findViewById(R.id.player3Name);
+
+        playerNames.add(playerName1.getText().toString());
+        playerNames.add(playerName2.getText().toString());
+        playerNames.add(playerName3.getText().toString());
 
         hideKeyboardFrom(getApplicationContext(), playerInt1);
 
@@ -91,29 +138,21 @@ public class MainActivity extends AppCompatActivity {
             playerOld2.setText(null);
             playerOld3.setText(null);
 
-            player1.add(playerInt1.getText().toString());
-            player2.add(playerInt2.getText().toString());
-            player3.add(playerInt3.getText().toString());
+            listOfPointsPlayer1.add(Integer.parseInt(playerInt1.getText().toString()));
+            listOfPointsPlayer2.add(Integer.parseInt(playerInt2.getText().toString()));
+            listOfPointsPlayer3.add(Integer.parseInt(playerInt3.getText().toString()));
 
-            result1 = result1+(Integer.parseInt(playerInt1.getText().toString()));
-            result2 = result2+(Integer.parseInt(playerInt2.getText().toString()));
-            result3 = result3+(Integer.parseInt(playerInt3.getText().toString()));
-
-            for (int i = 0; i < player1.size(); i++) {
-                playerOld1.append(player1.get(i) + "\n");
-                playerOld2.append(player2.get(i) + "\n");
-                playerOld3.append(player3.get(i) + "\n");
-            }
-
-            resultPlayer1.setText(String.valueOf(result1));
-            resultPlayer2.setText(String.valueOf(result2));
-            resultPlayer3.setText(String.valueOf(result3));
+            updateListOfOldPoints(listOfPointsPlayer1, listOfPointsPlayer2, listOfPointsPlayer3);
 
             playerInt1.setText(null);
             playerInt2.setText(null);
             playerInt3.setText(null);
-            updateRoundField(player1.size());
+            updateRoundField(listOfPointsPlayer1.size());
 
+            saveListOfPlayers.putListInt("Player1SaveData", listOfPointsPlayer1);
+            saveListOfPlayers.putListInt("Player2SaveData", listOfPointsPlayer2);
+            saveListOfPlayers.putListInt("Player3SaveData", listOfPointsPlayer3);
+            saveListOfPlayers.putListString("PlayerNames", playerNames);
         }
         else {
             //if Field is null
@@ -121,12 +160,89 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
+    private void updateListOfOldPoints(ArrayList listOfPointsPlayer1, ArrayList listOfPointsPlayer2,
+                                       ArrayList listOfPointsPlayer3){
+
+        playerOld1 = findViewById(R.id.oldIntegersPlayer1);
+        playerOld2 = findViewById(R.id.oldIntegersPlayer2);
+        playerOld3 = findViewById(R.id.oldIntegersPlayer3);
+        resultPlayer1 = findViewById(R.id.resultPlayer1);
+        resultPlayer2 = findViewById(R.id.resultPlayer2);
+        resultPlayer3 = findViewById(R.id.resultPlayer3);
+
+
+        result1 = calculateResultAndAddPointsToList(listOfPointsPlayer1, playerOld1);
+        result2 = calculateResultAndAddPointsToList(listOfPointsPlayer2, playerOld2);
+        result3 = calculateResultAndAddPointsToList(listOfPointsPlayer3, playerOld3);
+
+
+        resultPlayer1.setText(String.valueOf(result1));
+        resultPlayer2.setText(String.valueOf(result2));
+        resultPlayer3.setText(String.valueOf(result3));
+    }
+
+    private void fillInTheNamesAfterLoading(ArrayList listOfNames){
+
+        if(!listOfNames.isEmpty()){
+
+            playerName1 = findViewById(R.id.player1Name);
+            playerName2 = findViewById(R.id.player2Name);
+            playerName3 = findViewById(R.id.player3Name);
+            playerName1.setText(listOfNames.get(0).toString());
+            playerName2.setText(listOfNames.get(1).toString());
+            playerName3.setText(listOfNames.get(2).toString());
+        }
+    }
+    private int calculateResultAndAddPointsToList(List<Integer> listOfPoints, TextView oldNumberList){
+
+        int zwischenzahl = 0;
+        int resultTotal = 0;
+
+        for (int i=0; i< listOfPoints.size();i++){
+            zwischenzahl=listOfPoints.get(i)+zwischenzahl;
+            resultTotal=zwischenzahl+resultTotal;
+            zwischenzahl=0;
+
+            oldNumberList.append(listOfPoints.get(i) + "\n");
+        }
+        return resultTotal;
+    }
 
     private void updateRoundField(Integer round){
 
         TextView roundInteger = findViewById(R.id.roundInteger);
 
+        round++;
         roundInteger.setText(String.valueOf(round));
         Log.i("updateRoundField_msg", "UpdateRoundField to " + round);
+    }
+
+    private void setAllFieldsToNull(){
+
+        playerInt1 = findViewById(R.id.player1Int);
+        playerInt2 = findViewById(R.id.player2Int);
+        playerInt3 = findViewById(R.id.player3Int);
+        playerOld1 = findViewById(R.id.oldIntegersPlayer1);
+        playerOld2 = findViewById(R.id.oldIntegersPlayer2);
+        playerOld3 = findViewById(R.id.oldIntegersPlayer3);
+        playerName1 = findViewById(R.id.player1Name);
+        playerName2 = findViewById(R.id.player2Name);
+        playerName3 = findViewById(R.id.player3Name);
+
+
+        listOfPointsPlayer1.clear();
+        listOfPointsPlayer2.clear();
+        listOfPointsPlayer3.clear();
+        playerNames.clear();
+
+        playerName1.setText("");
+        playerName2.setText("");
+        playerName3.setText("");
+        playerOld1.setText(null);
+        playerOld2.setText(null);
+        playerOld3.setText(null);
+        playerInt1.setText(null);
+        playerInt2.setText(null);
+        playerInt3.setText(null);
     }
 }
