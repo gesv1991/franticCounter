@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView resultPlayer3;
     private TextView roundName;
     private TextView roundInteger;
+    private LinearLayout linearLayoutScrollable;
     private TinyDB saveListOfPlayers;
 
     @Override
@@ -124,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         playerName1 = findViewById(R.id.player1Name);
         playerName2 = findViewById(R.id.player2Name);
         playerName3 = findViewById(R.id.player3Name);
+        playerOld2.setMovementMethod(new ScrollingMovementMethod());
+        playerOld3.setMovementMethod(new ScrollingMovementMethod());
+
 
         playerNames.add(playerName1.getText().toString());
         playerNames.add(playerName2.getText().toString());
