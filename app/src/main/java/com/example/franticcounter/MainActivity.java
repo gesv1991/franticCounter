@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView resultPlayer3;
     private TextView roundName;
     private TextView roundInteger;
-    private LinearLayout linearLayoutScrollable;
     private TinyDB saveListOfPlayers;
 
     @Override
@@ -127,9 +126,6 @@ public class MainActivity extends AppCompatActivity {
         playerName1 = findViewById(R.id.player1Name);
         playerName2 = findViewById(R.id.player2Name);
         playerName3 = findViewById(R.id.player3Name);
-        playerOld2.setMovementMethod(new ScrollingMovementMethod());
-        playerOld3.setMovementMethod(new ScrollingMovementMethod());
-
 
         playerNames.add(playerName1.getText().toString());
         playerNames.add(playerName2.getText().toString());
