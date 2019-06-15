@@ -2,16 +2,15 @@ package com.example.franticcounter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         playerName2 = findViewById(R.id.player2Name);
         playerName3 = findViewById(R.id.player3Name);
 
+        playerNames.clear();
         playerNames.add(playerName1.getText().toString());
         playerNames.add(playerName2.getText().toString());
         playerNames.add(playerName3.getText().toString());
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillInTheNamesAfterLoading(ArrayList listOfNames){
 
-        if(!listOfNames.isEmpty()){
+        if(!listOfNames.isEmpty()) {
 
             playerName1 = findViewById(R.id.player1Name);
             playerName2 = findViewById(R.id.player2Name);
@@ -193,7 +193,26 @@ public class MainActivity extends AppCompatActivity {
             playerName1.setText(listOfNames.get(0).toString());
             playerName2.setText(listOfNames.get(1).toString());
             playerName3.setText(listOfNames.get(2).toString());
+
+            if (playerNames.get(2).equalsIgnoreCase("studer")) {
+                playerName3.setText("STUDER");
+                playerName3.setTextColor(Color.parseColor("#f442df"));
+                Toast.makeText(getApplicationContext(), "Haaa Gaay", Toast.LENGTH_LONG).show();
+
+            }
+            if (playerNames.get(1).equalsIgnoreCase("studer")) {
+                playerName2.setText("STUDER");
+                playerName2.setTextColor(Color.parseColor("#f442df"));
+                Toast.makeText(getApplicationContext(), "Haaa Gaay", Toast.LENGTH_LONG).show();
+            }
+
+            if (playerNames.get(0).equalsIgnoreCase("studer")) {
+                playerName1.setText("STUDER");
+                playerName1.setTextColor(Color.parseColor("#f442df"));
+                Toast.makeText(getApplicationContext(), "Haaa Gaay", Toast.LENGTH_LONG).show();
+            }
         }
+
     }
     private int calculateResultAndAddPointsToList(List<Integer> listOfPoints, TextView oldNumberList){
 
@@ -230,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
         playerName1 = findViewById(R.id.player1Name);
         playerName2 = findViewById(R.id.player2Name);
         playerName3 = findViewById(R.id.player3Name);
-
 
         listOfPointsPlayer1.clear();
         listOfPointsPlayer2.clear();
