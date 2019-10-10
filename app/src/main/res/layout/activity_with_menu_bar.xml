@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -26,6 +27,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="30"
             android:hint="Player1"
+            android:nextFocusDown="@id/player2Name"
             android:inputType="textShortMessage"
             android:textAlignment="textEnd" />
 
@@ -37,6 +39,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
+            android:nextFocusDown="@id/player3Name"
             android:hint="Player2"
             android:inputType="textShortMessage"
             android:textAlignment="textEnd" />
@@ -48,8 +51,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="30"
+            android:nextFocusDown="@id/player4Name"
             android:hint="Player3"
             android:inputType="textShortMessage"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/player4Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="30"
+            android:hint="Player4"
+            android:inputType="textShortMessage"
+            android:nextFocusDown="@id/player1Int"
             android:textAlignment="textEnd" />
     </LinearLayout>
 
@@ -71,7 +87,10 @@
             android:layout_marginStart="8dp"
             android:layout_weight="30"
             android:hint="Zahl"
+            android:nextFocusDown="@id/player2Int"
             android:inputType="numberSigned|number"
+            android:numeric="integer"
+            android:singleLine="true"
             android:textAlignment="textEnd" />
 
         <EditText
@@ -82,7 +101,10 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="30"
             android:hint="Zahl"
+            android:nextFocusDown="@id/player3Int"
             android:inputType="numberSigned|number"
+            android:numeric="integer"
+            android:singleLine="true"
             android:textAlignment="textEnd" />
 
         <EditText
@@ -92,7 +114,22 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="30"
             android:hint="Zahl"
+            android:nextFocusDown="@id/player4Int"
             android:inputType="numberSigned|number"
+            android:numeric="integer"
+            android:singleLine="true"
+            android:textAlignment="textEnd" />
+
+        <EditText
+            android:id="@+id/player4Int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="30"
+            android:hint="Zahl"
+            android:inputType="numberSigned|number"
+            android:numeric="integer"
+            android:singleLine="true"
             android:textAlignment="textEnd" />
 
     </LinearLayout>
@@ -127,12 +164,10 @@
         android:layout_marginEnd="8dp"
         android:layout_weight="30"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.674">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
             android:id="@+id/resultPlayer1"
@@ -164,26 +199,39 @@
             android:textAlignment="textEnd"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/resultPlayer4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="30"
+            android:textAlignment="textEnd"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <ScrollView
         android:layout_width="410dp"
         android:layout_height="300dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:isScrollContainer="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:windowSoftInputMode="adjustResize"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:windowSoftInputMode="adjustPan">
 
             <TextView
                 android:id="@+id/oldIntegersPlayer1"
                 android:layout_width="wrap_content"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="30"
                 android:editable="false"
@@ -195,7 +243,7 @@
             <TextView
                 android:id="@+id/oldIntegersPlayer2"
                 android:layout_width="wrap_content"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="30"
                 android:editable="false"
@@ -207,41 +255,28 @@
             <TextView
                 android:id="@+id/oldIntegersPlayer3"
                 android:layout_width="wrap_content"
-                android:layout_height="350dp"
-                android:layout_marginStart="8dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="30"
-                android:autoText="false"
-
                 android:editable="false"
                 android:ems="10"
-                android:enabled="true"
-                android:fadeScrollbars="true"
                 android:gravity="start|top"
                 android:inputType="none"
-                android:isScrollContainer="false"
-                android:scrollbars="vertical"
-                android:soundEffectsEnabled="false"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/oldIntegersPlayer4"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="30"
+                android:editable="false"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="none"
                 android:textAlignment="textEnd" />
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="395dp"
-        android:layout_height="370dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fadeScrollbars="true"
-        android:isScrollContainer="false"
-        android:orientation="horizontal"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/roundInteger"

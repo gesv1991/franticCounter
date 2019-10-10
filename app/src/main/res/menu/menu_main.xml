@@ -15,4 +15,9 @@
         android:title="Delete Data"
         app:showAsAction="always"
         ></item>
+    <item
+        android:id="@+id/action_identityTheft"
+        android:orderInCategory="100"
+        android:title="ID Theft"
+        app:showAsAction="always"></item>
 </menu>
